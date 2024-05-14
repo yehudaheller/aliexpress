@@ -11,5 +11,67 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <script src="scripts.js"></script>
+    <script>
+        // Function to create product HTML
+        function createProductHTML(product) {
+            const productDiv = document.createElement("div");
+            productDiv.classList.add("product");
+            productDiv.innerHTML = `
+                <h3>${product[3]}</h3>
+                <img src="${product[1]}" alt="${product[3]}">
+                <p>Before Discount: ${product[4]}</p>
+                <p>Price: ${product[5]}</p>
+                <p>Discount Price: ${product[6]}</p>
+                <a href="${product[15]}" target="_blank">Buy Now</a>
+                <button class="toggle-btn">Toggle Details</button>
+                <div class="details" style="display: none;">
+                    <p>Sales in last 180 days: ${product[11]}</p>
+                    <p>Positive Feedback: ${product[12]}</p>
+                    <p><a href="${product[14]}" target="_blank">Promotion Link</a></p>
+                    <video controls>
+                        <source src="${product[2]}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            `;
+            return productDiv;
+        }
+
+        // Function to display products
+        function displayProducts(products) {
+            const container = document.getElementById("product-container");
+            container.innerHTML = ""; // Clear previous content
+            
+            // Skip header row (assuming the first row contains headers)
+            for (let i = 1; i < products.length; i++) {
+                const product = products[i];
+                const productDiv = createProductHTML(product);
+                container.appendChild(productDiv);
+            }
+        }
+
+        // Load and display products when the page loads
+        window.onload = async function() {
+            try {
+                const products = await readExcelFile();
+                displayProducts(products);
+                
+                // Add event listeners to toggle buttons
+                const toggleButtons = document.querySelectorAll('.toggle-btn');
+                toggleButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const details = this.nextElementSibling;
+                        if (details.style.display === 'none') {
+                            details.style.display = 'block';
+                        } else {
+                            details.style.display = 'none';
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('Error reading Excel file:', error);
+            }
+        };
+    </script>
 </body>
 </html>
