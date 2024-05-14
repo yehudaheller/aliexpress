@@ -14,10 +14,9 @@ html, body {
 
 /* Style for each product */
 .product {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     transition: transform 0.3s ease;
 }
@@ -40,10 +39,6 @@ html, body {
 
 .product p {
     margin: 5px 0;
-}
-
-.product-description {
-    font-size: 14px;
 }
 
 .product-price {
