@@ -1,7 +1,7 @@
 // Function to read Excel file
 function readExcelFile() {
     return new Promise((resolve, reject) => {
-        const url = 'S090ecad3d0094376bde5be9a889eb9ad6.xls'; // Change to your file name
+        const url = 'S090ecad3d0094376bde5be9a889eb9ad6.xls'; // Path to the XLS file
         const xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.responseType = 'arraybuffer';
