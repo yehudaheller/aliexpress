@@ -18,7 +18,7 @@
             productDiv.classList.add("product");
             productDiv.innerHTML = `
                 <h3>${product[3]}</h3>
-                <img src="${product[2]}" alt="${product[3]}"> <!-- Changed to use product[2] for the image URL -->
+                <img src="${product[1]}" alt="${product[3]}"> <!-- Using product[1] for the image URL -->
                 <p>Before Discount: ${product[4]}</p>
                 <p>Price: ${product[5]}</p>
                 <p>Discount Price: ${product[6]}</p>
@@ -28,7 +28,7 @@
                     <p><a href="${product[14]}" target="_blank">Promotion Link</a></p>
                     <a href="${product[15]}" target="_blank" class="buy-link">Buy Now</a>
                     <video controls style="max-width: 100%; max-height: 200px;">
-                        <source src="${product[1]}" type="video/mp4"> <!-- Changed to use product[1] for the video URL -->
+                        <source src="${product[2]}" type="video/mp4"> <!-- Using product[2] for the video URL -->
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -55,16 +55,19 @@
             // Add event listener to toggle product details
             container.addEventListener('click', function(event) {
                 const target = event.target;
-                if (target.classList.contains('product')) {
-                    const details = target.querySelector('.details');
+                const product = target.closest('.product');
+                if (product) {
+                    const details = product.querySelector('.details');
                     const video = details.querySelector('video');
                     const buyLink = details.querySelector('.buy-link');
 
-                    if (details.style.display === 'none') {
+                    if (details.style.display === 'none' || details.style.display === '') {
+                        // Details are hidden or not set, so show them
                         details.style.display = 'block';
                         video.style.display = 'block'; // Show video
                         buyLink.style.display = 'inline'; // Show buy link
                     } else {
+                        // Details are visible, so hide them
                         details.style.display = 'none';
                         video.style.display = 'none'; // Hide video
                         buyLink.style.display = 'none'; // Hide buy link
