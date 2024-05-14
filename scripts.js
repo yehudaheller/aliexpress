@@ -40,9 +40,8 @@ function displayProducts(products) {
         productDiv.innerHTML = `
             <h3>${product[2]}</h3>
             <img src="${product[1]}" alt="${product[2]}">
-            <p class="product-description">${product[4]}</p>
-            <p class="product-price">Price: ${product[5]}</p>
-            <p class="discount-price">Discount Price: ${product[6]}</p>
+            <p>Price: ${product[5]}</p>
+            <p>Discount Price: ${product[6]}</p>
             <!-- Add more details as needed -->
         `;
         container.appendChild(productDiv);
