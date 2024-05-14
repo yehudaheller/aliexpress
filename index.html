@@ -18,18 +18,17 @@
             productDiv.classList.add("product");
             productDiv.innerHTML = `
                 <h3>${product[3]}</h3>
-                <img src="${product[1]}" alt="${product[3]}">
+                <img src="${product[2]}" alt="${product[3]}"> <!-- Changed to use product[2] for the image URL -->
                 <p>Before Discount: ${product[4]}</p>
                 <p>Price: ${product[5]}</p>
                 <p>Discount Price: ${product[6]}</p>
-                <button class="toggle-btn">Toggle Details</button>
-                <div class="details" style="display: none;">
+                <div class="details">
                     <p>Sales in last 180 days: ${product[11]}</p>
                     <p>Positive Feedback: ${product[12]}</p>
                     <p><a href="${product[14]}" target="_blank">Promotion Link</a></p>
                     <a href="${product[15]}" target="_blank" class="buy-link">Buy Now</a>
-                    <video controls style="max-width: 100%; max-height: 200px; display: none;">
-                        <source src="${product[2]}" type="video/mp4">
+                    <video controls style="max-width: 100%; max-height: 200px;">
+                        <source src="${product[1]}" type="video/mp4"> <!-- Changed to use product[1] for the video URL -->
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -48,9 +47,16 @@
                 const productDiv = createProductHTML(product);
                 container.appendChild(productDiv);
 
-                // Add event listener to toggle product details
-                productDiv.addEventListener('click', function() {
-                    const details = this.querySelector('.details');
+                // Hide details initially
+                const details = productDiv.querySelector('.details');
+                details.style.display = 'none';
+            }
+
+            // Add event listener to toggle product details
+            container.addEventListener('click', function(event) {
+                const target = event.target;
+                if (target.classList.contains('product')) {
+                    const details = target.querySelector('.details');
                     const video = details.querySelector('video');
                     const buyLink = details.querySelector('.buy-link');
 
@@ -63,8 +69,8 @@
                         video.style.display = 'none'; // Hide video
                         buyLink.style.display = 'none'; // Hide buy link
                     }
-                });
-            }
+                }
+            });
         }
 
         // Load and display products when the page loads
