@@ -38,9 +38,9 @@ function displayProducts(products) {
         const productDiv = document.createElement("div");
         productDiv.classList.add("product");
         productDiv.innerHTML = `
-            <h3>${product[2]}</h3>
-            <img src="${product[1]}" alt="${product[2]}">
-            <p>${product[4]}</p>
+            <h3>${product[3]}</h3>
+            <img src="${product[1]}" alt="${product[1]}">
+            <p>Before Discount:${product[4]}</p>
             <p>Price: ${product[5]}</p>
             <p>Discount Price: ${product[6]}</p>
             <!-- Add more details as needed -->
