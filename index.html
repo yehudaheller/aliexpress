@@ -22,13 +22,13 @@
                 <p>Before Discount: ${product[4]}</p>
                 <p>Price: ${product[5]}</p>
                 <p>Discount Price: ${product[6]}</p>
-                <a href="${product[15]}" target="_blank">Buy Now</a>
                 <button class="toggle-btn">Toggle Details</button>
                 <div class="details" style="display: none;">
                     <p>Sales in last 180 days: ${product[11]}</p>
                     <p>Positive Feedback: ${product[12]}</p>
                     <p><a href="${product[14]}" target="_blank">Promotion Link</a></p>
-                    <video controls>
+                    <a href="${product[15]}" target="_blank" class="buy-link">Buy Now</a>
+                    <video controls style="display: none;">
                         <source src="${product[2]}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -47,6 +47,23 @@
                 const product = products[i];
                 const productDiv = createProductHTML(product);
                 container.appendChild(productDiv);
+
+                // Add event listener to toggle product details
+                productDiv.addEventListener('click', function() {
+                    const details = this.querySelector('.details');
+                    const video = details.querySelector('video');
+                    const buyLink = details.querySelector('.buy-link');
+
+                    if (details.style.display === 'none') {
+                        details.style.display = 'block';
+                        video.style.display = 'block'; // Show video
+                        buyLink.style.display = 'inline'; // Show buy link
+                    } else {
+                        details.style.display = 'none';
+                        video.style.display = 'none'; // Hide video
+                        buyLink.style.display = 'none'; // Hide buy link
+                    }
+                });
             }
         }
 
@@ -55,19 +72,6 @@
             try {
                 const products = await readExcelFile();
                 displayProducts(products);
-                
-                // Add event listeners to toggle buttons
-                const toggleButtons = document.querySelectorAll('.toggle-btn');
-                toggleButtons.forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const details = this.nextElementSibling;
-                        if (details.style.display === 'none') {
-                            details.style.display = 'block';
-                        } else {
-                            details.style.display = 'none';
-                        }
-                    });
-                });
             } catch (error) {
                 console.error('Error reading Excel file:', error);
             }
